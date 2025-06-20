@@ -1,0 +1,50 @@
+&C.+INIT #8=$+init*:
+    @pemit %#=
+        switch(0,
+            hastype(%#,PLAYER),
+                permdeny(),
+            [setq(5,trim(%0))]
+            [switch(regmatch(%q5,%(/vcr%)%(.*%),-1 8 9),
+                1, // if /vcr is defined
+                    [setq(5,%q9)][setq(9,)]
+                    [switch(strmatch(setr(3,game(findcyber,Z0001P3,%#)),ST.CYBER.*),
+                        1, // if vcr exists, store rating in slot 8
+                            [setq(8,first(get(%#/%q3),|))][setq(3,)],
+                        0)] // else, return an error
+                ,1
+            )],
+                headerr(Stats System,You do not have a Vehicle Control Rig %(VCR%).),
+            [switch(regmatch(%q5,%(.*%) to %(.*%),-1 9 1),
+                1,
+                    [setq(5,%q9)][setq(9,)]
+                    [setq(1,remove(find(playerlist,%q1,%#),%#))],
+            )],
+            ,
+            [setq(0,trim(%q5))]
+            [switch(words(%q0),0,,
+                [orbool(
+                    not(strlen(%q0)),
+                    andbool(
+                        orbool(
+                            streq(left(%q0,1),+),streq(left(%q0,1),-)
+                        ),
+                        isnum(mid(%q0,1,8)),
+                        eq(mid(%q0,1,8),floor(mid(%q0,1,8)))
+                    )
+                )]
+            )],
+                headerr(Stats System,Invalid modifier.),
+            [setq(5,0)][setq(3,0)] // now all should be set: 8=vcr rating, 0=mod 1=to
+            [setq(6,game(getstat,ST.DMG.STUN,%#))]
+            [setq(3,sub(%q3,mid(43333222110,%q6,1)))]
+            [setq(6,game(getstat,ST.DMG.PHYS,%#))]
+            [setq(3,sub(%q3,mid(43333222110,%q6,1)))]
+            [setq(9,switch(%q8,,,RIGGING CONTROLPOOL))]
+            [setq(6,last(game(getstat,ST.AT.INI,%#,%q9),^))]
+            [setq(5,ladd(setr(2,iter(lnum(1,%q6),inc(rand(6)))), ))]
+            [setq(6,last(game(getstat,ST.AT.REA,%#,%q9),^))]
+            [setq(5,add(%q5,%q6,%q3,%q0))]
+            [setq(4,%ch%cw%N %cc%(%cw%#%cc%) rolls %cyInitiative%cc[switch(%q8,,,%busing a VCR rating %cw%q8)]%cc[switch(neq(%q0,0),1,%bwith a modifier of %cw%q0)]%ch%cc[switch(lt(%q3,0),1,%bwith a wound penalty of %ch%cw%q3)] %ch%ccwith a result of %cw[switch(lt(%q5,1),1,1,%q5)]%cc[switch(words(%q1),0,,%b%(only to [format(list,%q1)]%))].%cn%r[space(5)]%cg%q2)]
+            [switch(words(%q1),
+                0,game(autojudgeroom,loc(%#),%q4),
+                [game(sendautojudge,%#,%q4)][game(sendautojudge,%q1,%q4)])])

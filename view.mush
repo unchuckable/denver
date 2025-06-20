@@ -1,0 +1,39 @@
+&C.+VIEW #8=$+view:@pemit %#=[format(banner,Nearby Items with Views)][setq(2,)][setq(3,trim(squish(iter(setunion(loc(%#),trim(squish(lcon(loc(%#)) [lcon(%#)] [lexits(loc(%#))]))),switch(hasattrp(##,GEN.VIEWS),1,format(namedbref,name(##),##,33)),%b,|),|),b,|))]%r[ansi(hg,columns(%q3,33,|,5))]%r[format(footer,Type '[ansi(hy,+view [ansi(hm,<object>)])]' for a list of views)]
+
+&C.+VIEW.DETAILED #8=$+view *:@pemit %#=switch(0,isdbref(switch(strmatch(%0,*/*),1,setr(1,locate(%#,first(%0,/),*))[setq(2,rest(%0,/))],setr(1,locate(%#,%0,*)))),headerr(Views,I can't find anything near you named '[ansi(hw,%0)]'.),orbool(streq(%#,loc(%q1)),streq(loc(%#),%q1),streq(loc(%#),loc(%q1)),andbool(hastype(%q1,EXIT),eq(home(%q1),loc(%#)))),headerr(Views,[format(objname,%q1)] is too far away to see.),hasattr(%q1,GEN.VIEWS),headerr(Views,[format(objname,%q1)] has no views at this time.),setq(4,get(%q1/GEN.VIEWS))[setq(3,)][orbool(not(strlen(%q2)),words(setr(3,matchall(%q4,%q2*^*,|))))],headerr(Views,[format(objname,%q1)] does not have a view matching '[ansi(hw,%q2)]'.),switch(%q3,,setq(3,lnum(1,words(%q4,|))))[andbool(strlen(%q2),eq(words(%q3),1))],format(banner,Viewable Items on [stripansi(format(objname,%q1))])[setq(3,iter(%q3,first(extract(%q4,##,1,|),^),%b,|))]%r%ch%cg[space(5)][format(columnate,%q3,3,22,space(5),,|)]%r%r[format(footer,Type '[ansi(hy,+view %0/[ansi(hm,<item>)])]' to view an item)],setq(3,extract(%q4,%q3,1,|))[setq(6,first(%q3,^))][setq(3,rest(%q3,^))][format(banner,View For '%q6' On [stripansi(format(objname,%q1))])][obju(%q1,%q1/GEN.VIEW.%q3)]%r[format(footer)])
+
+&C.+VIEW.SET #8=$+view/set */*=*:
+    @pemit %#=switch(0,
+        isdbref(setr(1,locate(%#,%0,*))),
+            headerr(Views,I can't find anything matching '[ansi(hw,%0)]'.),
+        orbool(is(staff,%#),controls(%#,%q1)),
+            permdenied(),
+        strlen(%1),
+            headerr(Views,You must specify the name of the view to set.),
+        strlen(%2),
+            headerr(Views,You must specify the text of the view to set. It cannot be blank. To remove a view%, use [ansi(cc,+view/delete)].),
+        [setq(3,
+            switch(
+                hasattrp(%q1,GEN.VIEWS),
+                0,,
+                matchall(get(%q1/GEN.VIEWS),%1^*,|)
+            )
+        )]
+        [lte(words(%q3),1)],
+            headerr(Views,'[ansi(hw,%1)]' matches more than one already existing view on [format(objname,%q1)].),
+        [switch(
+            gt(strlen(%q3),0),
+            1,
+                [setq(4,rest(extract(get(%q1/GEN.VIEWS),%q3,1,|),^))],
+            [setq(4,game(nextuid,%q1))]
+            [set(%q1,GEN.VIEWS:[setunion(get(%q1/GEN.VIEWS),%1^%q4,|)])]
+        )]
+        [set(%q1/GEN.VIEWS,no_command)]
+        [set(%q1,GEN.VIEW.%q4:%2)]
+        [set(%q1/GEN.VIEW.%q4,no_command)]
+        [heading(Views,Successfully [switch(strlen(%q3),0,created a new,updated the existing)] view named '[ansi(hy,switch(strlen(%q3),0,%1,first(extract(get(%q1/GEN.VIEWS),%q3,1,|),^)))]' on [format(objname,%q1)].)]
+    )
+
+&C.+VIEW.DELETE #8=$+view/delete */*:@pemit %#=switch(0,isdbref(setr(1,locate(%#,%0,*))),headerr(Views,I can't find anything matching '[ansi(hw,%0)]'.),orbool(is(staff,%#),controls(%q1,%#)),permdenied(),hasattr(%q0,GEN.VIEWS),headerr(Views,There are no views defined on that object. If some appear to be there%, then they may be on the object's parent.),setq(3,matchall(get(%q1/GEN.VIEWS),%1^*,|))[eq(words(%q3),1)],headerr(Views,I can't find a view matching '[ansi(hw,%1)]' to delete on [format(objname,%q1)].),setq(4,rest(extract(setr(6,get(%q1/GEN.VIEWS)),%q3,1,|),^))[setq(5,first(extract(%q6,%q3,1,|),^))][set(%q1,GEN.VIEWS:[setdiff(%q6,%q5^%q4,|)])][set(%q1,GEN.VIEW.%q4:)][heading(Views,Successfully deleted the view named '[ansi(hw,%q5)]' from [format(objname,%q1)].)])
+
+@set #8/C.+VIEW.SET = no_parse

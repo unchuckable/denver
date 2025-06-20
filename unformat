@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# This script removes newlines followed by whitespace (space or tab),
+# along with the whitespace after the newline.
+
+# Usage: ./remove_ws_newlines.sh input.txt > output.txt
+
+sed -E '
+  s|^[ \t]*//.*$||g        # Remove full-line // comments (even if indented)
+  s|[ \t]+//.*$||g         # Remove end-of-line // comments after code
+' "$1" | sed -E ':a;N;$!ba;s/\n[ \t]+//g'

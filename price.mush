@@ -1,0 +1,22 @@
+&C.PRICE #12176=
+    $+price * *:
+        @pemit %#=
+            %xc%xh[switch(0,
+                        isnum(%0),
+                            Please enter successes,
+                        isnum(%1),
+                            Please enter a valid cost,
+                            [setq(0,abs(%0))]
+                            [setq(0,
+                                ladd(iter(1 2 3 4 5,
+                                    [setr(1,min(div(%q0,##),4))]
+                                    [setq(0,sub(%q0,mul(%q1,##)))]
+                                    ))
+                            )]
+                            Cost: 
+                            [switch(sign(%0),
+                                0,%1,
+                                1,[div(mul(%1,sub(20,%q0)),20)],
+                                [div(mul(%1,add(20,%q0)),20)]
+                            )]
+                        )]
