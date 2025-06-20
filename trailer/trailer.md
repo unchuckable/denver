@@ -17,7 +17,7 @@
 | Extra Entry Points (rear ramp plus side door) | r3.115 | - | - | - | - |
 | Living Amenities (High, 2Persons) | r3.p119 | -24 | - | 180 | - |
 | People space (2 persons) | r3.120 | -162 | -300 | - | - |
-| SunCell Power | - | - | 5 | - |
+| SunCell Power | r3.126 | - | - | 5 | - |
 | Vehicle Shop | r3.120 | -52 | -250 | - | 10000 |
 | **Total** | | 962 | 9445 | 340 | 10000 |
 
@@ -49,7 +49,7 @@ Possible Fix: Increase CF Capacity:
 | Extra Entry Points (rear ramp plus side door) | r3.115 | - | - | - | - |
 | Living Amenities (High, 2Persons) | r3.p119 | -24 | - | 180 | - |
 | People space (2 persons) | r3.120 | -162 | -300 | - | - |
-| SunCell Power | - | - | 5 | - |
+| SunCell Power | r3.126 | - | - | 5 | - |
 | Vehicle Shop | r3.120 | -52 | -250 | - | 10000 |
 | **Total** | | 1262 | 9445 | 1840 | 10000 |
 
@@ -70,7 +70,7 @@ Including a facility in a vehicle would impose a lot larger storage requirements
 | Extra Entry Points (rear ramp plus side door) | r3.115 | - | - | - | - |
 | Living Amenities (High, 2Persons) | r3.p119 | -24 | - | 180 | - |
 | People space (2 persons) | r3.120 | -162 | -300 | - | - |
-| SunCell Power | - | - | 5 | - |
+| SunCell Power | r3.126 | - | - | 5 | - |
 | Vehicle Facility | r3.120 | -500 | -1000 | 250 | 200'000 |
 | **Total** | | 915 | 9445 | 2590 | 200'000 |
 
