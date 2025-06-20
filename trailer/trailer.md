@@ -21,7 +21,14 @@
 | Vehicle Shop | r3.120 | -52 | -250 | - | 10000 |
 | **Total** | | 962 | 9445 | 340 | 10000 |
 
+**Total Cost Calculation**: 34500 Nuyen + 10000 Nuyen = **44500 Nuyen, SI 3**
 
-Storage Requirement for one racing car (+kb 297): 294 CF
+### Space Requirements
 
-People space required for maintenance (r3.120): 1215 CF
+| | Source | CF |
+| :- | :- | -: |
+| Storing a racing car (Body 3) | +kb 297 | 294 |
+| Maintenance on a racing car (Body 3) | r3.120 | 1215 |
+| Maintenance on an aerial drone (Body 2) | r3.120 | 512 |
+
+
